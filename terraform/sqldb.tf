@@ -4,7 +4,7 @@ data "azurerm_key_vault" "example" {
 }
 
 data "azurerm_key_vault_secret" "username" {
-  name         = "USERNAME"
+  name         = "SQLUSERNAME"
   key_vault_id = data.azurerm_key_vault.example.id
 }
 
@@ -37,7 +37,7 @@ resource "azurerm_mysql_server" "mysql-server" {
 
 resource "azurerm_mysql_database" "mysql-db" {
   name                = var.dbname
-  resource_group_name = azurerm_resource_group.mysql-rg.name
+  resource_group_name = azurerm_resource_group.rg.name
   server_name         = azurerm_mysql_server.mysql-server.name
   charset             = "utf8"
   collation           = "utf8_unicode_ci"
