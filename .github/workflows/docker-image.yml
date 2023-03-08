@@ -4,7 +4,8 @@ on:
   pull_request: #can be changed to pull_request_review to build image after approval
     branches: [ "master" ]
     paths-ignore:
-      - '.github/**'    
+      - '.github/**'
+      - 'terraform/**'    
 
 jobs:
 
