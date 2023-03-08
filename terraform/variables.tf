@@ -31,7 +31,7 @@ variable "docker_image" {
 variable "docker_image_tag" {
   type = string
   description = "docker image tag to pull image"
-  default = "v6"
+  default = "v7"
 }
 
 variable "mysql-version" {
