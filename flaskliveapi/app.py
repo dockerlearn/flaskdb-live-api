@@ -1,32 +1,33 @@
 from flask import Flask
 from flask import jsonify
-import pymysql
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.sql import text
 from os import environ
+import mysql.connector
+from mysql.connector import errorcode
 
 
 app = Flask(__name__)
 
-username = 'shrey01'
-# username = environ.get('USERNAME')
+#username = 'shrey01'
+username = environ.get('SQLUSERNAME')
 
 # password = 'Shrey#01'
 password = environ.get('PASSWORD')
-userpass = 'mysql+pymysql://' + username + ':' + password + '@'
+
 # keep this as is for a hosted website
 # server  = 'db4free.net'
 server = environ.get('SERVER')
 # change to YOUR database name, with a slash added as shown
 # dbname   = '/testshrey_003'
-dbname = '/' + environ.get('DBNAME')
+dbname = environ.get('DBNAME')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = userpass + server + dbname
-
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-
-# this variable, db, will be used for all SQLAlchemy commands
-db = SQLAlchemy(app)
+config = {
+  'host': server,
+  'user': username,
+  'password': password,
+  'database': dbname,
+  'client_flags': [mysql.connector.ClientFlag.SSL],
+  'ssl_ca': '/etc/cert/DigiCertGlobalRootG2.crt.pem'
+}
 
 @app.route('/', methods=['GET'])
 def home():
@@ -35,7 +36,7 @@ def home():
 @app.route('/live', methods=['GET'])
 def testdb():
     try:
-        db.session.query(text('1')).from_statement(text('SELECT 1')).all()
+        conn = mysql.connector.connect(**config)
         return '<h1>Well Done.</h1>'
     except Exception as e:
         # e holds description of the error
