@@ -26,4 +26,5 @@ jobs:
         name: shrey03/flaskapilive
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+        workdir : flaskliveapi
         tags: ${{ github.run_id }}
