@@ -18,11 +18,12 @@ jobs:
     - name: Build the Docker image
       run: |
         cd flaskliveapi
-        docker build . --file Dockerfile --tag shrey03/flaskapilive:$(date +%s)
+        docker build . --file Dockerfile --tag shrey03/flaskapilive:${{ github.run_id }}
 
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
-        name: shrey03/flaskapilive:$(date +%s)
+        name: shrey03/flaskapilive
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: ${{ github.run_id }}
