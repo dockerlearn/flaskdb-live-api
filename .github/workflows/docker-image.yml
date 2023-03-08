@@ -1,11 +1,7 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ "master" ]
-    paths-ignore:
-      - '.github/**'    
-  pull_request:
+  pull_request: #can be changed to pull_request_review to build image after approval
     branches: [ "master" ]
     paths-ignore:
       - '.github/**'    
@@ -19,7 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file flaskliveapi/Dockerfile --tag shrey03/flaskapilive:$(date +%s)
+      run: |
+        cd flaskliveapi
+        docker build . --file Dockerfile --tag shrey03/flaskapilive:$(date +%s)
 
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
