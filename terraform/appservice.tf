@@ -20,11 +20,6 @@ resource "azurerm_service_plan" "appserviceplan" {
   sku_name            = var.sku_name
 }
 
-# data "azurerm_service_plan" "example" {
-#   name                = "devops-dev-iothubscale-asp"
-#   resource_group_name = "devops-dev"
-# }
-
 resource "azurerm_linux_web_app" "webapp" {
   name                  = "webapp-${random_integer.ri.result}"
   location              = azurerm_resource_group.rg.location
@@ -32,16 +27,20 @@ resource "azurerm_linux_web_app" "webapp" {
   service_plan_id       = azurerm_service_plan.appserviceplan.id
   https_only            = true
   app_settings          = local.default_app_settings
+  virtual_network_subnet_id = try(azurerm_subnet.internal[0].id, null)
   site_config { 
     minimum_tls_version = "1.2"
     application_stack {
-      docker_image = "shrey03/flaskapilive"
-      docker_image_tag = "v6"
+      docker_image = var.docker_image
+      docker_image_tag = var.docker_image_tag
    }
   }
   logs {
     application_logs {
       file_system_level = "Error"
     }
-  }  
+  }
+  depends_on = [
+    azurerm_subnet.internal
+ ]  
 }

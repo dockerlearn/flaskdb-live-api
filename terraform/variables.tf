@@ -16,6 +16,24 @@ variable "sku_name" {
   default = "P1v2"
 }
 
+variable "create_vnet" {
+  type        = bool
+  description = "Enable vnet for connection"
+  default = false
+}
+
+variable "docker_image" {
+  type = string
+  description = "docker image url to pull image"
+  default = "shrey03/flaskapilive"
+}
+
+variable "docker_image_tag" {
+  type = string
+  description = "docker image tag to pull image"
+  default = "v6"
+}
+
 variable "mysql-version" {
   type = string
   description = "MySQL Server version to deploy"
@@ -24,7 +42,7 @@ variable "mysql-version" {
 variable "mysql-sku-name" {
   type = string
   description = "MySQL SKU Name"
-  default = "B_Gen5_1"
+  default = "GP_Gen5_2"
 }
 variable "mysql-storage" {
   type = string
@@ -47,6 +65,24 @@ variable "dbname" {
   type = string
   description = "Database name"
   default = "flaskapidb"
+}
+
+variable "vnetrange" {
+  type = list
+  description = "Vnet IP range"
+  default = ["10.186.40.64/26"]
+}
+
+variable "subnetrangesql" {
+  type = list
+  description = "Subnet IP range"
+  default = ["10.186.40.64/28"]
+}
+
+variable "subnetrangeappsvc" {
+  type = list
+  description = "Subnet IP range"
+  default = ["10.186.40.80/28"]
 }
 
 variable "websiteport" {
