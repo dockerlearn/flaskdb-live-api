@@ -44,3 +44,40 @@ resource "azurerm_linux_web_app" "webapp" {
     azurerm_subnet.internal
  ]  
 }
+
+resource "azurerm_log_analytics_workspace" "monitor" {
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  name                = "webapp-flaskapi"
+  sku                 = "PerGB2018"
+  retention_in_days   = 90
+}
+
+data "azurerm_monitor_diagnostic_categories" "webapp" {
+  resource_id = azurerm_linux_web_app.webapp.id
+}
+
+resource "azurerm_monitor_diagnostic_setting" "webapp" {
+  name               = "webappflask"
+  target_resource_id = azurerm_linux_web_app.webapp.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.monitor.id
+
+  dynamic "enabled_log" {
+    for_each = data.azurerm_monitor_diagnostic_categories.webapp.logs
+    content {
+      category = log.value
+      retention_policy {
+        days    = 90
+        enabled = true
+      }
+    }
+  }
+
+  metric {
+    category = "AllMetrics"
+
+    retention_policy {
+      enabled = false
+    }
+  }
+}

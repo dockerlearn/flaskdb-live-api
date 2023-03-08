@@ -74,3 +74,32 @@ resource "azurerm_mysql_virtual_network_rule" "example" {
   server_name         = azurerm_mysql_server.mysql-server.name
   subnet_id           = azurerm_subnet.internal[0].id
 }
+
+data "azurerm_monitor_diagnostic_categories" "mysqldb" {
+  resource_id = azurerm_mysql_server.mysql-server.id
+}
+
+resource "azurerm_monitor_diagnostic_setting" "mysql" {
+  name               = "webappmysql"
+  target_resource_id = azurerm_mysql_server.mysql-server.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.monitor.id
+
+  dynamic "enabled_log" {
+    for_each = data.azurerm_monitor_diagnostic_categories.mysqldb.logs
+    content {
+      category = log.value
+      retention_policy {
+        days    = 90
+        enabled = true
+      }
+    }
+  }
+
+  metric {
+    category = "AllMetrics"
+
+    retention_policy {
+      enabled = false
+    }
+  }
+}
