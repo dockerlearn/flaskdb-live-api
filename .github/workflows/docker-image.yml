@@ -8,19 +8,11 @@ on:
       - 'terraform/**'    
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-#     - name: Build the Docker image
-#       run: |
-#         cd flaskliveapi
-#         docker build . --file Dockerfile --tag shrey03/flaskapilive:${{ github.run_id }}
-
-    - name: Publish to Registry
+    - name: Build and Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
         name: shrey03/flaskapilive

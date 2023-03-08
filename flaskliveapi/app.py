@@ -40,9 +40,9 @@ def testdb():
         return '<h1>Well Done.</h1>'
     except Exception as e:
         # e holds description of the error
-        error_text = "<p>The error:<br>" + str(e) + "</p>"
+        # error_text = "<p>The error:<br>" + str(e) + "</p>"
         hed = '<h1>Maintaince.</h1>'
-        return hed + error_text
+        return hed
 
 
 if __name__ == '__main__':
