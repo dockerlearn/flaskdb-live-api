@@ -4,7 +4,8 @@ on:
   pull_request: #can be changed to pull_request_review to build image after approval
     branches: [ "master" ]
     paths-ignore:
-      - '.github/**'    
+      - '.github/**'
+      - 'terraform/**'    
 
 jobs:
 
@@ -14,10 +15,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: |
-        cd flaskliveapi
-        docker build . --file Dockerfile --tag shrey03/flaskapilive:$(date +%s)
+#     - name: Build the Docker image
+#       run: |
+#         cd flaskliveapi
+#         docker build . --file Dockerfile --tag shrey03/flaskapilive:${{ github.run_id }}
 
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
@@ -25,4 +26,6 @@ jobs:
         name: shrey03/flaskapilive
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        tags: $(date +%s)
+        workdir : flaskliveapi
+        tags: ${{ github.run_id }}
+        no_push: ${{ github.event_name == 'push' }}
