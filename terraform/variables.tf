@@ -19,7 +19,7 @@ variable "sku_name" {
 variable "create_vnet" {
   type        = bool
   description = "Enable vnet for connection"
-  default = false
+  default = true
 }
 
 variable "docker_image" {
@@ -77,12 +77,6 @@ variable "subnetrangesql" {
   type = list
   description = "Subnet IP range"
   default = ["10.186.40.64/28"]
-}
-
-variable "subnetrangeappsvc" {
-  type = list
-  description = "Subnet IP range"
-  default = ["10.186.40.80/28"]
 }
 
 variable "websiteport" {
