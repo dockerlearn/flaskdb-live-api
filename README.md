@@ -15,10 +15,10 @@ Application would be deployed in Azure `App Service` as docker image with `Azure
 ![Architecture Diagram](/Images/Architecture.png "Architecture")
 
 
-![DB Connection Working](/Images/flaskapi.png "DB Connection")
+![DB Connection Working](/Images/flaskapi.PNG "DB Connection")
 
 
-![DB Connection Error](/Images/error.png "DB Connection ")
+![DB Connection Error](/Images/error.PNG "DB Connection Error")
 
 
 ## CI/CD
