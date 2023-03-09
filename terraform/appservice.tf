@@ -18,6 +18,7 @@ resource "azurerm_service_plan" "appserviceplan" {
   resource_group_name = azurerm_resource_group.rg.name
   os_type             = "Linux"
   sku_name            = var.sku_name
+  zone_balancing_enabled  = true
 }
 
 resource "azurerm_linux_web_app" "webapp" {

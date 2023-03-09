@@ -52,6 +52,7 @@ The following arguments are required:
 - `docker_image_tag`    - Docker Image tag to pull.
 - `mysql-version`       - Specifies the version of MySQL to use. Valid values are 5.7, or 8.0. Changing this forces a new resource to be created.
 - `mysql-sku-name`      - Specifies the SKU Name for this MySQL Server. The name of the SKU, follows the tier + family + cores pattern (e.g. B_Gen4_1, GP_Gen5_8). For more information see the product documentation. Possible values are B_Gen4_1, B_Gen4_2, B_Gen5_1, B_Gen5_2, GP_Gen4_2, GP_Gen4_4, GP_Gen4_8, GP_Gen4_16, GP_Gen4_32, GP_Gen5_2, GP_Gen5_4, GP_Gen5_8, GP_Gen5_16, GP_Gen5_32, GP_Gen5_64, MO_Gen5_2, MO_Gen5_4, MO_Gen5_8, MO_Gen5_16 and MO_Gen5_32.
+- `geo_redundant_backup_enabled` - Turn Geo-redundant server backups on/off. This allows you to choose between locally redundant or geo-redundant backup storage in the General Purpose and Memory Optimized tiers. 
 - `mysql-storage`       - Max storage allowed for a server. Possible values are between 5120 MB(5GB) and 1048576 MB(1TB) for the Basic SKU and between 5120 MB(5GB) and 16777216 MB(16TB) for General Purpose/Memory Optimized SKUs.
 - `keyvaultname`        - Name of the keyVault from where secrets needs to be pulled. (**`Note:` Azure Key Vault should pre-created**)
 - `resourcegroupvault`  - ResourceGroup of the pre-created Key Vault.
