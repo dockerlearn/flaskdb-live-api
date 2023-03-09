@@ -51,9 +51,9 @@ variable "mysql-storage" {
 }
 
 variable "geo_redundant_backup_enabled" {
-  type        = string
+  type        = bool
   description = "Turn Geo-redundant server backups on/off."
-  default = "true"
+  default = true
 }
 
 variable "keyvaultname" {
