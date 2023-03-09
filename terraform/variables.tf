@@ -50,6 +50,12 @@ variable "mysql-storage" {
   default = "5120"
 }
 
+variable "geo_redundant_backup_enabled" {
+  type        = string
+  description = "Turn Geo-redundant server backups on/off."
+  default = "true"
+}
+
 variable "keyvaultname" {
   type = string
   description = "Key vault name"
